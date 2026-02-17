@@ -31,6 +31,9 @@ import NextTopLoader from "nextjs-toploader";
 export const metadata: Metadata = {
   title: "RoPhim - Xem phim chất lượng cao",
   description: "Clone Project Rophim.com.mx",
+  verification: {
+    google: "1Uk4kBlg_7_euGY9J1Irc0qfh8rwNNNkChREUVxnja8",
+  },
   other: {
     "google-adsense-account": "ca-pub-8210200852004651",
   },
