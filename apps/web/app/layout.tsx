@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import React, { ReactNode } from "react";
+import Script from "next/script";
 import { Be_Vietnam_Pro, Oswald } from "next/font/google";
 import "./globals.css";
 // Swiper styles
@@ -39,6 +40,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+      <head>
+        <Script
+          id="adsense-init"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8210200852004651"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${beVietnamPro.variable} ${oswald.variable} antialiased bg-black text-white font-sans`}>
         <NextTopLoader color="#ffd875" showSpinner={false} />
         <HideDevBadge />
