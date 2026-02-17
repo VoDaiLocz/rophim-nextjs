@@ -85,234 +85,190 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
 
     return (
         <main className="min-h-screen bg-[#0b0d14] text-white font-sans overflow-x-hidden pb-20">
-            {/* Backdrop Section - Ultra-Wide Cinematic 4K Experience */}
-            <div className="relative w-full h-[600px] md:h-[800px] lg:h-[850px] overflow-hidden bg-black">
-                <Image
-                    src={movie.thumb_url || movie.poster_url}
-                    alt={movie.name}
-                    fill
-                    className="object-cover opacity-100 transition-all duration-700 scale-100"
-                    priority
-                    quality={100}
-                    unoptimized
-                />
-                {/* Minimal Overlay - Only at the very bottom for transition */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-transparent to-transparent opacity-100" />
-                <div className="absolute bottom-0 left-0 w-full h-[400px] bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/80 to-transparent z-10" />
+            {/* Backdrop Section - Reference Design Implementation */}
+            <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden bg-[#0b0d14]">
+                {/* Main Image - Center Focus as requested */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src={movie.thumb_url || movie.poster_url}
+                        alt={movie.name}
+                        fill
+                        className="object-cover object-center opacity-100"
+                        priority
+                        quality={100}
+                        unoptimized
+                    />
+
+                    {/* Seamless Bottom Fade */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/40 to-transparent z-10" />
+                </div>
             </div>
 
-            {/* Main Content Area */}
-            <div className="container mx-auto px-4 md:px-12 -mt-[250px] md:-mt-[350px] relative z-20">
-                {/* Hero Info Header */}
-                <div className="flex flex-col lg:flex-row items-end gap-8 mb-12">
-                    {/* Poster */}
-                    <div className="w-[200px] md:w-[260px] flex-shrink-0 relative group">
-                        <div className="relative aspect-[2/3] rounded-xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10">
+            {/* Main Content Area - Aligned Layout (Poster Left, Actions Right) */}
+            <div className="container mx-auto px-5 md:px-[20px] -mt-24 md:-mt-32 relative z-30">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    {/* LEFT COLUMN - Information Sidebar (3/12) */}
+                    <div className="lg:col-span-3 flex flex-col gap-6">
+                        {/* 1. Poster */}
+                        <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden shadow-2xl border border-white/5 mx-auto lg:mx-0 max-w-[200px] lg:max-w-full group">
                             <Image
                                 src={movie.poster_url}
                                 alt={movie.name}
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                         </div>
-                    </div>
 
-                    {/* Action Bar Section */}
-                    <div className="flex-1 flex flex-col justify-end">
-                        <div className="flex flex-wrap items-center gap-6 md:gap-10 mb-8">
-                            {/* Xem Ngay Button - High Precision */}
-                            <Link
-                                href={`/xem-phim/${movie.slug}`}
-                                className="bg-[#ffd875] text-[#191b2b] px-10 py-4 rounded-full font-[900] uppercase text-sm tracking-widest flex items-center gap-4 hover:scale-105 active:scale-95 transition-all shadow-[0_15px_40px_-5px_rgba(255,216,117,0.4)] group"
-                            >
-                                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:rotate-[360deg] transition-transform duration-700">
-                                    <Play size={20} className="fill-black ml-1" />
-                                </div>
-                                Xem Ngay
-                            </Link>
-
-                            {/* Action Icons */}
-                            <div className="flex items-center gap-8">
-                                <button className="flex flex-col items-center gap-1 group/act">
-                                    <Heart size={22} className="text-white/40 group-hover/act:text-red-500 transition-colors" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Yêu thích</span>
-                                </button>
-                                <button className="flex flex-col items-center gap-1 group/act">
-                                    <Plus size={22} className="text-white/40 group-hover/act:text-[#ffd875] transition-colors" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Thêm vào</span>
-                                </button>
-                                <button className="flex flex-col items-center gap-1 group/act">
-                                    <Share2 size={22} className="text-white/40 group-hover/act:text-blue-400 transition-colors" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Chia sẻ</span>
-                                </button>
-                                <button className="flex flex-col items-center gap-1 group/act">
-                                    <MessageSquare size={22} className="text-white/40 group-hover/act:text-green-400 transition-colors" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">Bình luận</span>
-                                </button>
-                            </div>
-
-                            {/* Rating Pill */}
-                            <div className="ml-auto flex items-center gap-3 bg-blue-600/20 px-5 py-2.5 rounded-full border border-blue-600/30">
-                                <div className="flex items-center gap-1.5">
-                                    <Star size={18} className="text-[#ffd875] fill-[#ffd875]" />
-                                    <span className="text-lg font-[950] text-white">0.0</span>
-                                </div>
-                                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest border-l border-white/10 pl-3">Đánh giá</span>
-                            </div>
+                        {/* 2. Titles */}
+                        <div className="text-center lg:text-left space-y-1">
+                            <h1 className="text-2xl font-bold text-white leading-tight">{movie.name}</h1>
+                            <h2 className="text-sm font-medium text-[#ffd875] tracking-wide">{movie.origin_name}</h2>
                         </div>
 
-                        {/* Navigation Tabs - High Precision */}
-                        <div className="flex items-center gap-10">
-                            {["tập phim", "diễn viên", "gallery", "đề xuất"].map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`pb-4 text-xs font-black uppercase tracking-[0.2em] relative transition-colors ${activeTab === tab ? "text-[#ffd875]" : "text-white/30 hover:text-white"}`}
-                                >
-                                    {tab}
-                                    {activeTab === tab && (
-                                        <div className="absolute bottom-0 left-0 w-full h-[3px] bg-[#ffd875] rounded-t-full shadow-[0_0_15px_rgba(255,216,117,0.5)]" />
-                                    )}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Content Section - Two Columns */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
-                    {/* Left Side: Info & Description */}
-                    <div className="lg:col-span-8 space-y-10">
-                        <div className="space-y-4">
-                            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter italic leading-[0.9]">
-                                {movie.name}
-                            </h1>
-                            <h2 className="text-2xl md:text-3xl font-black text-[#ffd875] uppercase tracking-tighter italic opacity-90 leading-none">
-                                {movie.origin_name}
-                            </h2>
+                        {/* 3. Meta Capsules */}
+                        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                            <span className="px-2 py-0.5 rounded border border-[#ffd875] text-[#ffd875] text-xs font-bold uppercase">IMDb 0</span>
+                            <span className="px-2 py-0.5 rounded border border-white/20 text-white/60 text-xs font-bold">{movie.year}</span>
+                            <span className="px-2 py-0.5 rounded border border-white/20 text-white/60 text-xs font-bold">Phần 1</span>
                         </div>
 
-                        {/* Metadata Boxes */}
-                        <div className="flex flex-wrap gap-2.5">
-                            <div className="px-3 py-1.5 border border-[#ffd875] rounded text-[11px] font-black text-[#ffd875] uppercase">IMDb 0</div>
-                            <div className="px-3 py-1.5 border border-white/20 rounded text-[11px] font-black text-white/60 uppercase">{movie.year}</div>
-                            <div className="px-3 py-1.5 border border-white/20 rounded text-[11px] font-black text-white/60 uppercase">Phần 1</div>
-                            <div className="px-3 py-1.5 border border-white/20 rounded text-[11px] font-black text-white/60 uppercase">{movie.episode_current}</div>
-                        </div>
-
-                        {/* Genres */}
-                        <div className="flex flex-wrap gap-3">
+                        {/* 4. Categories */}
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                             {movie.category?.map(c => (
-                                <Link key={c.id} href={`/the-loai/${c.slug}`} className="px-4 py-2 bg-white/5 rounded-xl text-[11px] font-extrabold text-white/60 hover:text-white hover:bg-white/10 transition-colors uppercase tracking-widest border border-white/5">
+                                <Link key={c.id} href={`/the-loai/${c.slug}`} className="px-3 py-1 bg-white/5 rounded text-xs text-white/70 hover:text-white transition-colors cursor-pointer">
                                     {c.name}
                                 </Link>
                             ))}
                         </div>
 
-                        {/* Status Bar */}
-                        <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-orange-600/10 border border-orange-600/20 rounded-full">
-                            <div className="w-2 h-2 bg-orange-600 rounded-full animate-pulse" />
-                            <span className="text-[11px] font-black text-orange-600 uppercase tracking-widest italic">
-                                Đã chiếu: {movie.episode_current}
-                            </span>
+                        {/* 5. Status Banner */}
+                        <div className="bg-[#1f2333] border-l-4 border-[#ff7300] p-3 rounded-r flex items-center gap-2">
+                            <span className="text-[#ff7300] font-bold text-sm">Đã chiếu:</span>
+                            <span className="text-white/60 text-xs truncate">{movie.episode_current}</span>
                         </div>
 
-                        {/* Description Section */}
-                        <div className="space-y-6 pt-6">
-                            <h3 className="text-xl font-black uppercase tracking-widest flex items-center gap-3">
-                                <div className="w-1.5 h-6 bg-[#ffd875] rounded-full" />
-                                Giới thiệu:
-                            </h3>
-                            <div className="text-white/60 text-[16.5px] leading-relaxed max-w-4xl space-y-4"
+                        {/* 6. Description */}
+                        <div className="space-y-2">
+                            <h3 className="text-sm font-bold text-white uppercase">Giới thiệu:</h3>
+                            <p className="text-sm text-white/60 leading-relaxed text-justify"
                                 dangerouslySetInnerHTML={{ __html: movie.content }}
                             />
                         </div>
 
-                        {/* Additional Meta Info */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12 py-10 border-t border-white/5">
-                            <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                                <span className="text-[11px] font-black text-white/30 uppercase tracking-widest">Thời lượng:</span>
-                                <span className="text-sm font-bold">{movie.time || "Đang cập nhật"}</span>
+                        {/* 7. Details Table */}
+                        <div className="space-y-2 text-sm">
+                            <div className="flex">
+                                <span className="text-white font-bold min-w-[100px]">Thời lượng:</span>
+                                <span className="text-white/60">{movie.time || "Đang cập nhật"}</span>
                             </div>
-                            <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                                <span className="text-[11px] font-black text-white/30 uppercase tracking-widest">Quốc gia:</span>
-                                <span className="text-sm font-bold">{movie.country?.[0]?.name}</span>
-                            </div>
-                            <div className="flex flex-col gap-3 col-span-full">
-                                <span className="text-[11px] font-black text-white/30 uppercase tracking-widest">Tags:</span>
-                                <div className="flex flex-wrap gap-3">
-                                    {movie.actor?.slice(0, 8).map(a => (
-                                        <span key={a} className="text-xs font-black text-white/60 hover:text-[#ffd875] transition-colors uppercase tracking-tight cursor-pointer">#{a}</span>
-                                    ))}
-                                </div>
+                            <div className="flex">
+                                <span className="text-white font-bold min-w-[100px]">Quốc gia:</span>
+                                <span className="text-white/60">{movie.country?.[0]?.name}</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Side: Sidebar - Episode List & Ranking */}
-                    <div className="lg:col-span-4 space-y-12">
-                        {/* Server & Episode Grid - Mobile & Desktop Sidebar */}
-                        <div className="space-y-8">
-                            <div className="flex items-center justify-between mb-2">
-                                <div className="flex items-center gap-3">
-                                    <Zap className="text-[#ffd875] fill-[#ffd875]" size={18} />
-                                    <h3 className="text-sm font-black uppercase tracking-widest italic">PHẦN 1</h3>
-                                </div>
-                                <div className="bg-[#ffd875]/10 border border-[#ffd875]/20 px-3 py-1.5 rounded text-[10px] font-black text-[#ffd875] uppercase tracking-widest">
-                                    Lồng Tiếng #1
-                                </div>
-                            </div>
 
-                            <div className="bg-[#191b24] p-5 rounded-3xl border border-white/5 max-h-[500px] overflow-y-auto detail-scrollbar">
-                                <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-4 gap-3">
-                                    {episodes[0]?.server_data.map((ep) => (
-                                        <Link
-                                            key={ep.slug}
-                                            href={`/xem-phim/${movie.slug}?tap=${ep.slug}`}
-                                            className="h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/5 hover:border-[#ffd875]/50 hover:bg-[#ffd875]/5 text-xs font-black transition-all group"
-                                        >
-                                            <Play size={10} className="mr-1.5 text-white/20 group-hover:text-[#ffd875] transition-colors" />
-                                            {ep.name}
-                                        </Link>
-                                    ))}
-                                </div>
+                    {/* RIGHT COLUMN - Main Content (9/12) */}
+                    <div className="lg:col-span-9 space-y-8">
+                        {/* 1. Navigation Tabs */}
+                        <div className="border-b border-white/10">
+                            <div className="flex items-center gap-8">
+                                {['Tập phim', 'Trailer', 'Diễn viên', 'Gallery', 'Đề xuất'].map((tab, idx) => (
+                                    <button
+                                        key={tab}
+                                        className={`pb-4 text-sm font-bold uppercase tracking-wider relative ${idx === 0 ? 'text-[#ffd875]' : 'text-white/40 hover:text-white transition-colors'}`}
+                                    >
+                                        {tab}
+                                        {idx === 0 && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#ffd875]" />}
+                                    </button>
+                                ))}
                             </div>
+                        </div>
 
-                            <div className="bg-[#191b24] p-6 rounded-3xl border border-white/5 relative overflow-hidden group py-10">
-                                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                                    <Zap size={100} className="text-white fill-white" />
+                        {/* 2. Viewing Options Selection (Các bản chiếu) */}
+                        <div className="space-y-4">
+                            <h3 className="text-xl font-bold text-white">Các bản chiếu</h3>
+
+                            <div className="bg-[#181a25] rounded-lg p-5 flex flex-col sm:flex-row gap-5 relative overflow-hidden group">
+                                {/* Background Image for Card */}
+                                <div className="absolute top-0 right-0 w-2/3 h-full opacity-20 pointer-events-none">
+                                    <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#181a25] z-10" />
+                                    <Image
+                                        src={movie.thumb_url || movie.poster_url}
+                                        alt="bg"
+                                        fill
+                                        className="object-cover"
+                                    />
                                 </div>
-                                <div className="relative z-10 text-center space-y-4">
-                                    <p className="text-[10px] font-black text-[#ffd875] uppercase tracking-[0.3em]">Cần quảng cáo?</p>
-                                    <h4 className="text-sm font-black uppercase group-hover:text-blue-400 transition-colors">Liên hệ RoPhim Admin</h4>
-                                    <div className="pt-2">
-                                        <button className="px-6 py-2 bg-blue-600 rounded-lg text-[10px] font-black uppercase tracking-widest">Telegram</button>
+
+                                <div className="relative z-10 flex-1 space-y-4">
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-[#5a4af4] text-white text-xs font-bold px-2 py-1 rounded">Vietsub</span>
                                     </div>
+
+                                    <div>
+                                        <span className="text-white font-bold block mb-1">Tập</span>
+                                        {/* Episode List Placeholder */}
+                                        <div className="flex gap-2">
+                                            {episodes[0]?.server_data.slice(0, 5).map((ep) => (
+                                                <Link key={ep.slug} href={`/xem-phim/${movie.slug}?tap=${ep.slug}`} className="w-10 h-10 rounded bg-white/10 flex items-center justify-center text-sm font-bold hover:bg-[#ffd875] hover:text-black transition-colors">
+                                                    {ep.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <Link
+                                        href={`/xem-phim/${movie.slug}`}
+                                        className="inline-flex items-center justify-center bg-white text-black font-extrabold text-sm px-6 py-2.5 rounded hover:scale-105 transition-transform"
+                                    >
+                                        Xem bản này
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 3. Ad Banner Placeholder */}
+                        <div className="w-full h-[100px] bg-[#224] rounded flex items-center justify-center border border-white/5 relative overflow-hidden">
+                            {/* Decorative content to mimic ad */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-green-900 opacity-50" />
+                            <span className="relative z-10 text-white font-bold text-2xl tracking-widest animate-pulse">HUGE MEMECOIN MONSTER IS HERE</span>
+                            <button className="absolute right-10 z-10 bg-[#76b900] text-white font-black px-6 py-2 rounded-full skew-x-[-10deg]">BUY NOW</button>
+                        </div>
+
+                        {/* 4. Comments Section Placeholder */}
+                        <div className="pt-8 border-t border-white/5">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white font-bold text-lg">Bình luận (0)</span>
+                                </div>
+                                <div className="flex bg-[#1f2333] rounded overflow-hidden text-xs font-bold">
+                                    <button className="px-3 py-1.5 bg-white text-black">Bình luận</button>
+                                    <button className="px-3 py-1.5 text-white/60 hover:text-white">Đánh giá</button>
                                 </div>
                             </div>
 
-                            {/* Ranking / New Comments placeholder */}
-                            <div className="space-y-6 pt-4">
-                                <div className="flex items-center gap-3">
-                                    <MessageSquare className="text-[#ffd875]" size={20} />
-                                    <h3 className="text-sm font-black uppercase tracking-widest italic">BÌNH LUẬN (0)</h3>
+                            {/* Comment Input */}
+                            <div className="flex gap-4">
+                                <div className="w-10 h-10 rounded-full bg-gray-700 flex-shrink-0 relative overflow-hidden">
+                                    <div className="w-full h-full flex items-center justify-center text-xs text-white/40">Guest</div>
                                 </div>
-                                <div className="bg-[#191b24] p-8 rounded-3xl border border-white/5 flex flex-col items-center justify-center text-center space-y-4">
-                                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
-                                        <MessageSquare size={32} className="text-white/10" />
-                                    </div>
-                                    <p className="text-xs font-bold text-white/30 uppercase tracking-widest">Hãy là người đầu tiên bình luận!</p>
-                                    <button className="px-8 py-3 bg-[#ffd875] text-black rounded-full font-black uppercase text-[10px] tracking-widest shadow-lg transform hover:scale-105 transition-all">Viết bình luận</button>
+                                <div className="flex-1">
+                                    <textarea
+                                        className="w-full bg-[#0b0d14] border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#ffd875] min-h-[80px]"
+                                        placeholder="Viết bình luận..."
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Related Movies */}
-                <div className="mt-24 pt-12 border-t border-white/5">
-                    <MovieCarousel title="Phim cùng thể loại" items={suggestedMovies} />
-                </div>
+            {/* Related Movies */}
+            <div className="mt-24 pt-12 border-t border-white/5">
+                <MovieCarousel title="Phim cùng thể loại" items={suggestedMovies} />
             </div>
         </main>
     );
