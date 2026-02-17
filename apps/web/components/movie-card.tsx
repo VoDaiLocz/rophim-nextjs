@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { Play, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 interface MovieCardProps {
     title: string;
@@ -33,19 +35,36 @@ export const MovieCard = ({
     view,
     rating,
 }: MovieCardProps) => {
+    const [isNavigating, setIsNavigating] = useState(false);
+    const pathname = usePathname();
+
+    // Reset loading state when route actually changes
+    useEffect(() => {
+        setIsNavigating(false);
+    }, [pathname]);
+
+    const handleLinkClick = () => {
+        setIsNavigating(true);
+    };
     return (
         <div className="group relative w-full">
             {/* Poster Container */}
-            <Link href={`/xem-phim/${slug}`} className="block relative aspect-[2/3] overflow-hidden rounded-[5px] bg-[#1a1c28] gloss-effect">
-                <Image
-                    src={posterUrl}
-                    alt={title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    quality={75}
-                    loading="lazy"
-                />
+            <Link
+                href={`/phim/${slug}`}
+                onClick={handleLinkClick}
+                className="block relative aspect-[2/3] overflow-hidden rounded-[5px] premium-border-container shadow-2xl"
+            >
+                <div className="premium-border-inner relative w-full h-full overflow-hidden rounded-[4px] group-hover:opacity-80 transition-opacity duration-300">
+                    <Image
+                        src={posterUrl}
+                        alt={title}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                        className="object-cover"
+                        quality={75}
+                        loading="lazy"
+                    />
+                </div>
 
                 {/* Badges - Premium style */}
                 <div className="absolute top-2 right-2 z-20">
@@ -69,11 +88,18 @@ export const MovieCard = ({
                     )}
                 </div>
 
-                {/* Hover Play Button */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                    <div className="w-12 h-12 rounded-full bg-[#d9aa52] flex items-center justify-center text-[#1c1c1c] scale-75 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
-                        <Play className="fill-current w-5 h-5 ml-0.5" />
-                    </div>
+                {/* Hover Play Button or Loader */}
+                <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center z-10 ${isNavigating ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                    {isNavigating ? (
+                        <div className="flex flex-col items-center gap-2">
+                            <Loader2 className="w-10 h-10 text-[#ffd875] animate-spin" />
+                            <span className="text-[10px] font-black uppercase tracking-widest text-[#ffd875]">Đang tải...</span>
+                        </div>
+                    ) : (
+                        <div className="w-12 h-12 rounded-full bg-[#d9aa52] flex items-center justify-center text-[#1c1c1c] scale-75 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
+                            <Play className="fill-current w-5 h-5 ml-0.5" />
+                        </div>
+                    )}
                 </div>
             </Link>
 
@@ -81,7 +107,7 @@ export const MovieCard = ({
             {!hideInfo && (
                 <div className="mt-3 px-0.5">
                     <h3 className="text-[14.5px] font-bold text-white leading-tight mb-1 line-clamp-1 group-hover:text-[#d9aa52] transition-colors tracking-tight">
-                        <Link href={`/xem-phim/${slug}`} title={title}>
+                        <Link href={`/phim/${slug}`} title={title} onClick={handleLinkClick}>
                             {title}
                         </Link>
                     </h3>

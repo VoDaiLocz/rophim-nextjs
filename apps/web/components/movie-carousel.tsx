@@ -39,7 +39,7 @@ export const MovieCarousel = ({ title, icon, viewMoreLink, items }: MovieCarouse
     if (!items || items.length === 0) return null;
 
     return (
-        <section className="py-6 w-full group relative">
+        <section className="py-6 w-full relative">
             <div className="container mx-auto px-4 md:px-10">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-5">

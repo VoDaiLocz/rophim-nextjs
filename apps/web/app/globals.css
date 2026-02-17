@@ -86,22 +86,24 @@
   border-color: #ffd875aa !important;
 }
 
-.gloss-effect::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.13) 50%, rgba(255, 255, 255, 0) 100%);
-  transform: skewX(-25deg);
-  transition: all 0.75s;
-  pointer-events: none;
-  z-index: 5;
+/* Shrink-to-Border Effect (RoPhim Original) */
+.premium-border-container {
+  background-color: #ffd875;
+  transition: all 0.3s ease;
 }
 
-.group:hover .gloss-effect::after {
-  left: 125%;
+.premium-border-inner {
+  transition: all 0.3s ease;
+  transform: scale(1);
+  background-color: #1a1c28;
+}
+
+.group:hover .premium-border-inner {
+  transform: scale(0.97);
+}
+
+.group:hover .premium-border-container {
+  box-shadow: 0 0 20px rgba(255, 216, 117, 0.2);
 }
 
 body {

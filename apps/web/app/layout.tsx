@@ -25,6 +25,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HideDevBadge } from "@/components/hide-dev-badge";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "RoPhim - Xem phim chất lượng cao",
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${beVietnamPro.variable} ${oswald.variable} antialiased bg-black text-white font-sans`}>
+        <NextTopLoader color="#ffd875" showSpinner={false} />
         <HideDevBadge />
         <Navbar />
         {children}

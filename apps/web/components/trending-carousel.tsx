@@ -36,7 +36,7 @@ export const TrendingCarousel = ({ title, items }: TrendingCarouselProps) => {
     if (!items || items.length === 0) return null;
 
     return (
-        <section className="py-16 w-full group relative bg-gradient-to-b from-[#0b0d14] via-[#10121a] to-[#0b0d14]">
+        <section className="py-16 w-full relative bg-gradient-to-b from-[#0b0d14] via-[#10121a] to-[#0b0d14]">
             <div className="container mx-auto px-4 md:px-10">
                 {/* Header Style - Netflix Bold Italic */}
                 <div className="flex items-center gap-4 mb-12">
@@ -98,7 +98,7 @@ export const TrendingCarousel = ({ title, items }: TrendingCarouselProps) => {
                                         </span>
                                         <div className="flex-1 min-w-0">
                                             <h3 className="text-[14px] md:text-[15.5px] font-bold text-white line-clamp-1 group-hover/slide:text-[#ffd875] transition-colors leading-tight mb-1">
-                                                <Link href={`/xem-phim/${movie.slug}`}>
+                                                <Link href={`/phim/${movie.slug}`}>
                                                     {movie.title}
                                                 </Link>
                                             </h3>

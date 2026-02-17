@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination, Thumbs } from "swiper/modules";
-import { Play, Info, Calendar, Clock, Star } from "lucide-react";
+import { Play, Info, Calendar, Clock, Star, Loader2 } from "lucide-react";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import type { Swiper as SwiperType } from "swiper";
 
 // Import Swiper styles
@@ -32,6 +34,16 @@ interface HeroSliderProps {
 
 export const HeroSlider = ({ movies }: HeroSliderProps) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+    const [isNavigating, setIsNavigating] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsNavigating(false);
+    }, [pathname]);
+
+    const handleAction = () => {
+        setIsNavigating(true);
+    };
 
     if (!movies || movies.length === 0) return null;
 
@@ -92,17 +104,23 @@ export const HeroSlider = ({ movies }: HeroSliderProps) => {
                                 {/* Play Section */}
                                 <div className="flex flex-wrap items-center gap-6 pt-6">
                                     <Link
-                                        href={`/xem-phim/${movie.slug}`}
+                                        href={`/phim/${movie.slug}`}
+                                        onClick={handleAction}
                                         className="group/btn relative flex items-center gap-4 bg-[#ffd875] text-black pl-8 pr-10 py-3 rounded-full font-[900] uppercase tracking-tighter transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_15px_40px_-10px_rgba(255,216,117,0.5)]"
                                     >
                                         <div className="absolute -left-1 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg group-hover/btn:rotate-[360deg] transition-transform duration-700">
-                                            <Play className="fill-black w-5 h-5 ml-1" />
+                                            {isNavigating ? (
+                                                <Loader2 size={24} className="text-black animate-spin" />
+                                            ) : (
+                                                <Play className="fill-black w-5 h-5 ml-1" />
+                                            )}
                                         </div>
-                                        <span className="ml-5 uppercase text-base">Xem Phim Ngay</span>
+                                        <span className="ml-5 uppercase text-base">{isNavigating ? "Đang tải..." : "Xem Phim Ngay"}</span>
                                     </Link>
 
                                     <Link
-                                        href={`/xem-phim/${movie.slug}`}
+                                        href={`/phim/${movie.slug}`}
+                                        onClick={handleAction}
                                         className="flex items-center gap-2 group/info"
                                     >
                                         <div className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center group-hover/info:border-[#ffd875] group-hover/info:bg-[#ffd875]/10 transition-all duration-300">

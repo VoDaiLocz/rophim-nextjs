@@ -81,22 +81,24 @@ export default function MovieDetailPage({ params }: { params: Promise<{ slug: st
     };
 
     const suggestedMovies = transformListMovies(latestMovies);
+    const isSharedImage = movie.thumb_url === movie.poster_url;
 
     return (
         <main className="min-h-screen bg-[#0b0d14] text-white font-sans overflow-x-hidden pb-20">
-            {/* Backdrop Section - Exactly like rophim.com.mx */}
-            <div className="relative w-full h-[550px] md:h-[650px] overflow-hidden">
+            {/* Backdrop Section - Ultra-Wide Cinematic 4K Experience */}
+            <div className="relative w-full h-[600px] md:h-[800px] lg:h-[850px] overflow-hidden bg-black">
                 <Image
                     src={movie.thumb_url || movie.poster_url}
                     alt={movie.name}
                     fill
-                    className="object-cover opacity-50 scale-105"
+                    className="object-cover opacity-100 transition-all duration-700 scale-100"
                     priority
+                    quality={100}
+                    unoptimized
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/40 to-transparent" />
-
-                {/* Blue border effect on top of content area */}
-                <div className="absolute bottom-0 left-0 w-full h-[150px] bg-gradient-to-t from-[#0b0d14] to-transparent" />
+                {/* Minimal Overlay - Only at the very bottom for transition */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-transparent to-transparent opacity-100" />
+                <div className="absolute bottom-0 left-0 w-full h-[400px] bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/80 to-transparent z-10" />
             </div>
 
             {/* Main Content Area */}

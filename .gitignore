@@ -47,3 +47,5 @@ PROGRESS.md
 # Vercel
 .vercel
 .env*.local
+
+.vercel

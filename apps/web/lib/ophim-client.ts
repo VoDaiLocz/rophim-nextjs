@@ -133,6 +133,10 @@ const cleanAndFilterMovies = (items: any[], pathImage: string, isHomeFeed: boole
         const baseTitle = getBaseTitle(item.name);
         if (seenBaseTitle.has(baseTitle)) continue;
 
+        // STRICT IMAGE FILTER: Only allow movies with 2 distinct images (Poster & Backdrop)
+        // This ensures the site always looks premium with full assets.
+        if (!item.poster_url || !item.thumb_url || item.poster_url === item.thumb_url) continue;
+
         if (seenId.has(item._id) || seenId.has(item.slug)) continue;
 
         seenId.add(item._id);
