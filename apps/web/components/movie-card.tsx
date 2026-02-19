@@ -75,29 +75,29 @@ export const MovieCard = ({
                     )}
                 </div>
 
-                <div className="absolute bottom-0 left-0 flex z-20 pointer-events-none">
+                <div className="absolute bottom-0 left-0 flex z-20 pointer-events-none gap-0.5 p-0.5">
                     {language && (
-                        <div className="bg-[#4a4c5a] text-white text-[10px] font-bold px-1.5 py-0.5 min-w-[24px] text-center uppercase tracking-wider">
+                        <div className="bg-[#4a4c5a]/90 backdrop-blur-sm text-white text-[9px] font-black px-1.5 py-0.5 rounded-sm min-w-[24px] text-center uppercase tracking-tighter">
                             {language === "Vietsub" || language === "PĐ" ? "PĐ" : "TM"}
                         </div>
                     )}
                     {quality && (
-                        <div className="bg-[#248a4d] text-white text-[10px] font-bold px-1.5 py-0.5 min-w-[24px] text-center uppercase tracking-wider">
+                        <div className="bg-[#248a4d]/90 backdrop-blur-sm text-white text-[9px] font-black px-1.5 py-0.5 rounded-sm min-w-[24px] text-center uppercase tracking-tighter">
                             {quality}
                         </div>
                     )}
                 </div>
 
                 {/* Hover Play Button or Loader */}
-                <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center z-10 ${isNavigating ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                <div className={`absolute inset-0 bg-black/50 backdrop-hover transition-all duration-500 flex items-center justify-center z-10 ${isNavigating ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
                     {isNavigating ? (
                         <div className="flex flex-col items-center gap-2">
                             <Loader2 className="w-10 h-10 text-[#ffd875] animate-spin" />
                             <span className="text-[10px] font-black uppercase tracking-widest text-[#ffd875]">Đang tải...</span>
                         </div>
                     ) : (
-                        <div className="w-12 h-12 rounded-full bg-[#d9aa52] flex items-center justify-center text-[#1c1c1c] scale-75 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
-                            <Play className="fill-current w-5 h-5 ml-0.5" />
+                        <div className="w-14 h-14 rounded-full bg-[#ffd875] flex items-center justify-center text-[#1c1c1c] scale-75 group-hover:scale-100 transition-all duration-300 shadow-[0_0_30px_rgba(255,216,117,0.5)]">
+                            <Play className="fill-current w-6 h-6 ml-1" />
                         </div>
                     )}
                 </div>
@@ -105,20 +105,19 @@ export const MovieCard = ({
 
             {/* Typography */}
             {!hideInfo && (
-                <div className="mt-3 px-0.5">
-                    <h3 className="text-[14.5px] font-bold text-white leading-tight mb-1 line-clamp-1 group-hover:text-[#d9aa52] transition-colors tracking-tight">
+                <div className="mt-2.5 px-0.5">
+                    <h3 className="text-[13px] md:text-[13.5px] font-black text-white leading-tight mb-1 line-clamp-1 group-hover:text-[#ffd875] transition-colors tracking-tighter italic uppercase">
                         <Link href={`/phim/${slug}`} title={title} onClick={handleLinkClick}>
                             {title}
                         </Link>
                     </h3>
-                    <div className="flex items-center justify-between mt-1">
-                        <p className="text-[12px] text-[#717382] font-medium leading-tight line-clamp-1 truncate uppercase tracking-tight max-w-[70%]">
+                    <div className="flex items-center justify-between mt-0.5">
+                        <p className="text-[10px] text-[#717382] font-black leading-tight line-clamp-1 truncate uppercase tracking-tighter italic opacity-50">
                             {originalTitle || title}
                         </p>
                         {view && (
-                            <span className="text-[10px] text-white/30 font-bold flex items-center gap-1">
-                                <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-                                {view.toLocaleString()} lượt xem
+                            <span className="text-[8.5px] text-white/20 font-black flex items-center gap-1 uppercase tracking-tighter">
+                                {view.toLocaleString()} xem
                             </span>
                         )}
                     </div>
