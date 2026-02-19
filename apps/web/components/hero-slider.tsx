@@ -67,66 +67,61 @@ export const HeroSlider = ({ movies }: HeroSliderProps) => {
             >
                 {movies.map((movie, index) => (
                     <SwiperSlide key={movie._id} className="relative w-full h-full overflow-hidden">
-                        {/* Ultra Sharp Background */}
-                        <div className="absolute inset-0 z-0 overflow-hidden">
+                        {/* High-Fidelity Cinematic Background (Image 2 Style) */}
+                        <div className="absolute inset-0 z-0 overflow-hidden bg-[#0a0a0a]">
                             <Image
                                 src={movie.thumb_url}
                                 alt={movie.name}
                                 fill
                                 priority={index === 0}
-                                className="object-cover object-[center_20%] transition-transform duration-[10000ms] ease-linear group-hover:scale-110"
-                                quality={85}
+                                className="object-cover object-[center_25%] transition-transform duration-[15000ms] ease-out group-hover:scale-110 opacity-100"
+                                quality={100}
                             />
-                            {/* High-Performance Cinematic Overlays */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-transparent to-transparent z-10" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#0b0d14]/80 via-[#0b0d14]/20 to-transparent z-10" />
-                            <div className="absolute inset-0 backdrop-brightness-[0.8] z-0" />
+                            {/* The "Golden Secret" Overlays */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/20 to-transparent z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#0b0d14]/60 via-transparent to-transparent z-10" />
+                            <div className="absolute inset-0 bg-[#ffaa00]/10 mix-blend-soft-light z-10" />
+                            <div className="absolute inset-0 bg-[#ffd875]/5 mix-blend-overlay z-10" />
                         </div>
 
                         {/* Text Content */}
                         <div className="container relative z-20 h-full flex flex-col justify-center pt-20 px-6 md:px-16">
-                            <div className="max-w-2xl space-y-8 animate-fade-up">
-                                {/* Title Block */}
+                            <div className="max-w-3xl space-y-4 md:space-y-6 animate-fade-up">
+                                {/* Title Block - Artistic Typography style (Image 4) */}
                                 <div className="space-y-1">
-                                    <h1 className="text-2xl md:text-5xl font-[900] text-white tracking-tighter uppercase leading-tight italic drop-shadow-xl">
+                                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tight drop-shadow-2xl leading-none" style={{ fontFamily: "'Playfair Display', serif" }}>
                                         {movie.name}
                                     </h1>
-                                    <p className="text-lg md:text-xl text-white/40 font-bold tracking-tight uppercase italic ml-1">
+                                    <p className="text-lg md:text-xl text-[#ffd875] font-medium tracking-wide opacity-90 italic">
                                         {movie.origin_name}
                                     </p>
                                 </div>
 
-                                {/* Synopsis */}
-                                <p className="text-white/60 text-sm md:text-lg line-clamp-2 max-w-lg leading-relaxed font-medium ml-1">
-                                    Trải nghiệm ngay siêu phẩm điện ảnh với chất lượng hình ảnh gốc sắc nét nhất tại RoPhim.
+                                {/* Refined Pill Badges (Image 4 Style) */}
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="border-[0.5px] border-white/40 bg-black/40 text-[#ffd875] text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">IMDb 9.0</span>
+                                    <span className="border-[0.5px] border-white/40 bg-white/5 text-white/90 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">2024</span>
+                                    <span className="border-[0.5px] border-white/40 bg-white/5 text-white/90 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Phần 1</span>
+                                    <span className="border-[0.5px] border-white/40 bg-white/5 text-white/90 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Tập 12</span>
+                                    <div className="flex gap-2 ml-2">
+                                        <span className="bg-white/10 text-white/60 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-tighter">Hài</span>
+                                        <span className="bg-white/10 text-white/60 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-tighter">Chính Kịch</span>
+                                    </div>
+                                </div>
+
+                                {/* Synopsis - Shorter & Thinner */}
+                                <p className="text-white/80 text-sm md:text-base line-clamp-3 max-w-2xl leading-relaxed font-normal drop-shadow-md">
+                                    Trải nghiệm ngay siêu phẩm điện ảnh với chất lượng hình ảnh gốc sắc nét nhất tại RoPhim. Kho phim mới khổng lồ, chất lượng 4K cực đỉnh.
                                 </p>
 
-                                {/* Play Section */}
-                                <div className="flex flex-wrap items-center gap-6 pt-6">
+                                {/* Simple Play Circle (Like Image 2) */}
+                                <div className="pt-4">
                                     <Link
                                         href={`/phim/${movie.slug}`}
                                         onClick={handleAction}
-                                        className="group/btn relative flex items-center gap-4 bg-[#ffd875] text-black pl-8 pr-10 py-3 rounded-full font-[900] uppercase tracking-tighter transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_15px_40px_-10px_rgba(255,216,117,0.5)]"
+                                        className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#ffd875] flex items-center justify-center text-black shadow-[0_0_30px_rgba(255,216,117,0.3)] hover:scale-110 transition-all duration-300 group/play"
                                     >
-                                        <div className="absolute -left-1 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg group-hover/btn:rotate-[360deg] transition-transform duration-700">
-                                            {isNavigating ? (
-                                                <Loader2 size={24} className="text-black animate-spin" />
-                                            ) : (
-                                                <Play className="fill-black w-5 h-5 ml-1" />
-                                            )}
-                                        </div>
-                                        <span className="ml-5 uppercase text-base">{isNavigating ? "Đang tải..." : "Xem Phim Ngay"}</span>
-                                    </Link>
-
-                                    <Link
-                                        href={`/phim/${movie.slug}`}
-                                        onClick={handleAction}
-                                        className="flex items-center gap-2 group/info"
-                                    >
-                                        <div className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center group-hover/info:border-[#ffd875] group-hover/info:bg-[#ffd875]/10 transition-all duration-300">
-                                            <Info size={22} className="text-white group-hover/info:text-[#ffd875]" />
-                                        </div>
-                                        <span className="text-white font-[900] uppercase tracking-widest text-sm opacity-60 group-hover/info:opacity-100 transition-opacity">Thông Tin Chi Tiết</span>
+                                        <Play className="fill-current w-6 h-6 md:w-8 md:h-8 ml-1" />
                                     </Link>
                                 </div>
                             </div>
@@ -135,7 +130,7 @@ export const HeroSlider = ({ movies }: HeroSliderProps) => {
                 ))}
             </Swiper>
 
-            {/* Thumbnails Navigation - Bottom Right (Pro Feature) */}
+            {/* Thumbnails Navigation - Bottom Right (Vibrant Yellow Glow) */}
             <div className="absolute bottom-12 right-6 md:right-16 z-40 w-fit max-w-[280px] md:max-w-[450px] hidden md:block">
                 <Swiper
                     onSwiper={setThumbsSwiper}
@@ -147,14 +142,14 @@ export const HeroSlider = ({ movies }: HeroSliderProps) => {
                 >
                     {movies.map((movie) => (
                         <SwiperSlide key={movie._id} className="cursor-pointer group/thumb">
-                            <div className="relative aspect-video rounded-md overflow-hidden border-2 border-transparent transition-all duration-300 group-[.swiper-slide-thumb-active]:border-[#ffd875] group-[.swiper-slide-thumb-active]:scale-110 shadow-2xl">
+                            <div className="relative aspect-video rounded-md overflow-hidden border-2 border-transparent transition-all duration-300 group-[.swiper-slide-thumb-active]:border-[#ffd875] group-[.swiper-slide-thumb-active]:scale-110 group-[.swiper-slide-thumb-active]:shadow-[0_0_20px_rgba(255,216,117,0.5)]">
                                 <Image
                                     src={movie.thumb_url || movie.poster_url}
                                     alt={movie.name}
                                     fill
                                     className="object-cover transition-transform duration-500 group-hover/thumb:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-black/40 group-hover/thumb:bg-transparent transition-colors duration-300" />
+                                <div className="absolute inset-0 bg-black/60 group-hover/thumb:bg-transparent group-[.swiper-slide-thumb-active]:bg-transparent transition-colors duration-300" />
                             </div>
                         </SwiperSlide>
                     ))}
