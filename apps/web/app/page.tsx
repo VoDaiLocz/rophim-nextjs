@@ -167,16 +167,9 @@ export default function Home() {
             {/* Topic Navigation */}
             <div className="mb-0">
               <TopicGrid />
-              <MoodGrid />
             </div>
 
-            <div className="container mx-auto space-y-2">
-              <MovieCarousel
-                title="Xem tiếp của bạn"
-                icon="⌚"
-                items={transformMovies(data.latest.slice(5, 12))}
-              />
-
+            <div className="container mx-auto space-y-4 md:space-y-8">
               <MovieCarousel
                 title="Phim Hàn Quốc mới"
                 icon="🇰🇷"
@@ -250,14 +243,24 @@ export default function Home() {
               />
 
               <MovieCarousel
-                title="Phim Thái New: Không drama đời không nể"
+                title="Phim Thái Now: Không drama đời không nể"
                 icon="🐘"
                 viewMoreLink="/quoc-gia/thai-lan"
                 items={transformMovies(data.thai)}
               />
 
+              {/* Mini Hero Slider placeholder for Anime section */}
+              <div className="py-10">
+                <MovieCarousel
+                  title="Kho Tàng Anime Mới Nhất"
+                  icon="⚡"
+                  viewMoreLink="/danh-sach/hoat-hinh"
+                  items={transformMovies(data.cartoon)}
+                />
+              </div>
+
               <MovieCarousel
-                title="Điện Ảnh Hồng Kông Ở Chỗ Này Này"
+                title="Điện Ảnh Hồng Kông Ở Chỗ Này Nầy"
                 icon="🐲"
                 viewMoreLink="/quoc-gia/hong-kong"
                 items={transformMovies(data.hongkong)}
@@ -271,27 +274,11 @@ export default function Home() {
               />
 
               <MovieCarousel
-                title="Tối Sợ Con Người Em Rồi Đó, nhưng Không Bằng Sợ Ma"
-                icon="👻"
-                viewMoreLink="/the-loai/kinh-di"
-                items={transformMovies(data.horror)}
-              />
-
-              <MovieCarousel
-                title="Yêu Kiều Hẳn"
+                title="Yêu Kiểu Hàn"
                 icon="💖"
                 viewMoreLink="/the-loai/tinh-cam"
                 items={transformMovies(data.romance)}
               />
-
-              <MovieCarousel
-                title="Phim Hoạt Hình Anime Mới Nhất"
-                icon="📺"
-                viewMoreLink="/danh-sach/hoat-hinh"
-                items={transformMovies(data.cartoon)}
-              />
-
-              <HomeStatsGrid />
 
               <GhibliSection />
             </div>
