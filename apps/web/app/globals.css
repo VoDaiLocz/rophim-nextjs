@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,24 +49,25 @@
   font-family: var(--font-oswald), sans-serif;
   font-weight: 800;
   font-style: italic;
-  font-size: 180px;
-  line-height: 0.7;
+  font-size: 150px;
+  line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 2.2px rgba(255, 255, 255, 0.45);
-  text-shadow: 0 10px 40px rgba(0, 0, 0, 1);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   pointer-events: none;
   user-select: none;
-  letter-spacing: -24px;
-  /* Control positioning component-side via Tailwind */
-  transform: scaleX(0.78);
-  transform-origin: left bottom;
-  opacity: 1;
-  transition: all 0.4s ease;
+  letter-spacing: -10px;
+  display: block;
+  transform: scaleY(1.1);
+  opacity: 0.8;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.swiper-slide:hover .ranking-number-hollow {
-  -webkit-text-stroke: 2.2px rgba(255, 255, 255, 0.8);
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+.group\/slide:hover .ranking-number-hollow {
+  -webkit-text-stroke: 2px rgba(255, 216, 117, 0.8);
+  opacity: 1;
+  filter: drop-shadow(0 0 20px rgba(255, 216, 117, 0.3));
+  transform: scaleY(1.1) translateY(-10px);
 }
 
 /* Aggressive Development Badge Removal */
