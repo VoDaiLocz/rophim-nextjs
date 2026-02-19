@@ -60,7 +60,7 @@ export const TrendingCarousel = ({ title, items }: TrendingCarouselProps) => {
                     <Swiper
                         modules={[Navigation, Autoplay]}
                         spaceBetween={20}
-                        slidesPerView={1.4}
+                        slidesPerView={2.2}
                         autoplay={{ delay: 5000, disableOnInteraction: true }}
                         navigation={{
                             prevEl: navigationPrevRef.current,
@@ -76,44 +76,36 @@ export const TrendingCarousel = ({ title, items }: TrendingCarouselProps) => {
                             }
                         }}
                         breakpoints={{
-                            480: { slidesPerView: 2.2, spaceBetween: 15 },
-                            768: { slidesPerView: 3.2, spaceBetween: 20 },
-                            1024: { slidesPerView: 4.2, spaceBetween: 20 },
-                            1440: { slidesPerView: 5.2, spaceBetween: 25 },
+                            640: { slidesPerView: 3.2, spaceBetween: 15 },
+                            768: { slidesPerView: 4.2, spaceBetween: 20 },
+                            1024: { slidesPerView: 5.2, spaceBetween: 20 },
+                            1280: { slidesPerView: 6.5, spaceBetween: 20 },
                         }}
-                        className="w-full !overflow-visible !py-8"
+                        className="w-full !overflow-visible !py-4"
                     >
                         {items.map((movie, index) => (
                             <SwiperSlide key={movie.id} className="h-auto group/slide select-none overflow-visible">
-                                <div className="flex flex-col gap-4 w-full">
+                                <div className="flex flex-col gap-2 w-full">
                                     {/* Poster Container */}
-                                    <div className="relative aspect-[2/3] w-full rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover/slide:-translate-y-2">
+                                    <div className="relative aspect-[2/3] w-full rounded-md overflow-hidden shadow-xl transition-transform duration-500 group-hover/slide:-translate-y-2 z-10">
                                         <MovieCard {...movie} hideInfo />
                                     </div>
 
                                     {/* Ranking & Info Bar */}
-                                    <div className="flex items-start gap-3.5 px-0.5">
-                                        <span className="text-5xl md:text-[64px] font-[1000] italic text-[#ffd875] leading-[0.8] tracking-tighter drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                                    <div className="flex items-start gap-3 px-0.5 mt-2">
+                                        <span className="text-3xl md:text-4xl font-black italic text-[#ffd875] leading-none tracking-tighter shrink-0 pt-0.5">
                                             {index + 1}
                                         </span>
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="text-[14px] md:text-[15.5px] font-bold text-white line-clamp-1 group-hover/slide:text-[#ffd875] transition-colors leading-tight mb-1">
+
+                                        <div className="flex-1 min-w-0 font-italic">
+                                            <h3 className="text-[12.5px] md:text-[13px] font-black text-white line-clamp-1 group-hover/slide:text-[#ffd875] transition-colors leading-tight mb-1 italic uppercase tracking-tighter">
                                                 <Link href={`/phim/${movie.slug}`}>
                                                     {movie.title}
                                                 </Link>
                                             </h3>
-                                            <p className="text-[11px] text-white/40 font-medium line-clamp-1 truncate uppercase tracking-tight">
+                                            <p className="text-[10px] text-white/30 font-black line-clamp-1 truncate uppercase tracking-tighter italic opacity-40 leading-none">
                                                 {movie.originalTitle || movie.title}
                                             </p>
-                                            <div className="flex items-center gap-2 mt-1.5">
-                                                <span className="text-[10px] text-white/30 font-bold uppercase tracking-wider">
-                                                    Phần 1
-                                                </span>
-                                                <span className="w-1 h-1 bg-white/10 rounded-full"></span>
-                                                <span className="text-[10px] text-white/30 font-bold uppercase tracking-wider">
-                                                    {movie.episodeCurrent || "HD"}
-                                                </span>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
