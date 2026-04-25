@@ -18,7 +18,9 @@
     "lint:fix": {
       "cache": false
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "check-types": {
       "dependsOn": ["^check-types"]
     },

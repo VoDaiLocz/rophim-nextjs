@@ -41,7 +41,9 @@ export class AuthController {
 
   @Get("me")
   async me(@Req() request: Request) {
-    const user = await this.authService.getCurrentUser(getSessionToken(request));
+    const user = await this.authService.getCurrentUser(
+      getSessionToken(request),
+    );
     return { user };
   }
 
@@ -56,7 +58,9 @@ export class AuthController {
   }
 
   async requireUser(request: Request) {
-    const user = await this.authService.getCurrentUser(getSessionToken(request));
+    const user = await this.authService.getCurrentUser(
+      getSessionToken(request),
+    );
     if (!user) {
       throw new UnauthorizedException("Authentication required");
     }

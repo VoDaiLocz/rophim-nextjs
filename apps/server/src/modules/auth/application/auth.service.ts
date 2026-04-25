@@ -63,14 +63,19 @@ export class AuthService {
     const email = this.normalizeEmail(input.email);
     const user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (!user || !(await this.verifyPassword(input.password, user.passwordHash))) {
+    if (
+      !user ||
+      !(await this.verifyPassword(input.password, user.passwordHash))
+    ) {
       throw new UnauthorizedException("Invalid email or password");
     }
 
     return this.createSessionForUser(this.toPublicUser(user));
   }
 
-  async getCurrentUser(sessionToken?: string | null): Promise<PublicUser | null> {
+  async getCurrentUser(
+    sessionToken?: string | null,
+  ): Promise<PublicUser | null> {
     if (!sessionToken) return null;
 
     const session = await this.prisma.session.findUnique({

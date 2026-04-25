@@ -48,7 +48,10 @@ export const memberApiBaseUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (configuredUrl) return configuredUrl.replace(/\/$/, "");
 
-  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+  if (
+    typeof window !== "undefined" &&
+    window.location.hostname === "localhost"
+  ) {
     return "http://localhost:3001";
   }
 
@@ -67,7 +70,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!response.ok) {
     const payload = await response.json().catch(() => null);
-    throw new Error(payload?.message || "Không thể kết nối tài khoản thành viên");
+    throw new Error(
+      payload?.message || "Không thể kết nối tài khoản thành viên",
+    );
   }
 
   return response.json() as Promise<T>;

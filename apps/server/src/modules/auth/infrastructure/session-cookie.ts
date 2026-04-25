@@ -17,7 +17,10 @@ export function getSessionToken(request: Request): string | null {
   return decodeURIComponent(sessionCookie.split("=").slice(1).join("="));
 }
 
-export function setSessionCookie(response: Response, sessionToken: string): void {
+export function setSessionCookie(
+  response: Response,
+  sessionToken: string,
+): void {
   response.cookie(SESSION_COOKIE_NAME, sessionToken, {
     httpOnly: true,
     secure: isProduction,

@@ -84,7 +84,9 @@ export class MemberController {
   }
 
   private async requireUser(request: Request) {
-    const user = await this.authService.getCurrentUser(getSessionToken(request));
+    const user = await this.authService.getCurrentUser(
+      getSessionToken(request),
+    );
     if (!user) {
       throw new UnauthorizedException("Authentication required");
     }

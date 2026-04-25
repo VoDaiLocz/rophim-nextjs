@@ -32,9 +32,9 @@ export function MemberProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [libraryView, setLibraryView] = useState<"favorites" | "history" | null>(
-    null,
-  );
+  const [libraryView, setLibraryView] = useState<
+    "favorites" | "history" | null
+  >(null);
 
   const refreshUser = useCallback(async () => {
     try {
