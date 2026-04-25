@@ -1,6 +1,7 @@
 "use client";
 
 const RENDER_API_BASE_URL = "https://rophim-server.onrender.com";
+const BACKEND_PROXY_BASE_URL = "/api/backend";
 
 export interface MemberUser {
   id: string;
@@ -46,16 +47,16 @@ export interface MoviePayload {
 
 export const memberApiBaseUrl = () => {
   const configuredUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  if (configuredUrl) return configuredUrl.replace(/\/$/, "");
 
-  if (
-    typeof window !== "undefined" &&
-    window.location.hostname === "localhost"
-  ) {
-    return "http://localhost:3001";
+  if (typeof window !== "undefined") {
+    if (window.location.hostname === "localhost") {
+      return configuredUrl?.replace(/\/$/, "") || "http://localhost:3001";
+    }
+
+    return BACKEND_PROXY_BASE_URL;
   }
 
-  return RENDER_API_BASE_URL;
+  return configuredUrl?.replace(/\/$/, "") || RENDER_API_BASE_URL;
 };
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -101,6 +102,12 @@ export const memberClient = {
   },
   async toggleFavorite(input: MoviePayload) {
     return request<{ favorited: boolean }>("/member/favorites/toggle", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+  },
+  async saveFavorite(input: MoviePayload) {
+    return request<{ favorited: boolean }>("/member/favorites", {
       method: "POST",
       body: JSON.stringify(input),
     });

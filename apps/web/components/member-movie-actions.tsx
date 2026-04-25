@@ -6,7 +6,7 @@ import { memberClient, type MoviePayload } from "@/lib/member-client";
 import { useMember } from "./member-provider";
 
 export function MemberMovieActions({ movie }: { movie: MoviePayload }) {
-  const { user, openAuth } = useMember();
+  const { user, openAuth, openLibrary } = useMember();
   const [favorited, setFavorited] = useState(false);
   const [pending, setPending] = useState(false);
 
@@ -24,6 +24,18 @@ export function MemberMovieActions({ movie }: { movie: MoviePayload }) {
     try {
       const result = await memberClient.toggleFavorite(movie);
       setFavorited(result.favorited);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const saveToLibrary = async () => {
+    if (!requireMember()) return;
+    setPending(true);
+    try {
+      await memberClient.saveFavorite(movie);
+      setFavorited(true);
+      openLibrary("favorites");
     } finally {
       setPending(false);
     }
@@ -55,7 +67,7 @@ export function MemberMovieActions({ movie }: { movie: MoviePayload }) {
         </button>
 
         <button
-          onClick={toggleFavorite}
+          onClick={saveToLibrary}
           disabled={pending}
           className="flex flex-col items-center gap-1 text-white/70 transition-colors hover:text-[#ffd875]"
         >

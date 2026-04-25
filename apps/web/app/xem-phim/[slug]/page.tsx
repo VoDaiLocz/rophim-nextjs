@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { VideoPlayer } from "@/components/video-player";
 import { MovieCarousel } from "@/components/movie-carousel";
+import { useMember } from "@/components/member-provider";
 import { memberClient } from "@/lib/member-client";
 import {
   getMovieDetail,
@@ -29,6 +30,7 @@ function WatchPageContent({ params }: { params: Promise<{ slug: string }> }) {
     url: string;
   } | null>(null);
   const [currentServer, setCurrentServer] = useState(0);
+  const { user } = useMember();
 
   const tapParam = searchParams.get("tap");
 
@@ -78,7 +80,7 @@ function WatchPageContent({ params }: { params: Promise<{ slug: string }> }) {
   }, [slug, tapParam]);
 
   useEffect(() => {
-    if (!movie || !currentEpisode) return;
+    if (!user || !movie || !currentEpisode) return;
 
     const timeoutId = window.setTimeout(() => {
       void memberClient
@@ -93,7 +95,7 @@ function WatchPageContent({ params }: { params: Promise<{ slug: string }> }) {
     }, 2500);
 
     return () => window.clearTimeout(timeoutId);
-  }, [movie, currentEpisode]);
+  }, [user, movie, currentEpisode]);
 
   if (loading) {
     return (

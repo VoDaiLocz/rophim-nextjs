@@ -25,6 +25,20 @@ export class MemberController {
     return { items: await this.memberService.listFavorites(user.id) };
   }
 
+  @Post("favorites")
+  async saveFavorite(
+    @Req() request: Request,
+    @Body()
+    body: {
+      movieSlug: string;
+      movieTitle: string;
+      posterUrl?: string;
+    },
+  ) {
+    const user = await this.requireUser(request);
+    return this.memberService.saveFavorite(user.id, body);
+  }
+
   @Post("favorites/toggle")
   async toggleFavorite(
     @Req() request: Request,

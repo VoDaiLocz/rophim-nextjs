@@ -54,6 +54,30 @@ export class MemberService {
     return { favorited: true };
   }
 
+  async saveFavorite(userId: string, input: MovieInput) {
+    const movie = this.normalizeMovieInput(input);
+    const existingFavorite = await this.prisma.favorite.findUnique({
+      where: {
+        userId_movieSlug: {
+          userId,
+          movieSlug: movie.movieSlug,
+        },
+      },
+    });
+
+    if (existingFavorite) {
+      return { favorited: true };
+    }
+
+    await this.prisma.favorite.create({
+      data: {
+        userId,
+        ...movie,
+      },
+    });
+    return { favorited: true };
+  }
+
   async listComments(movieSlug: string) {
     return this.prisma.comment.findMany({
       where: { movieSlug: this.normalizeSlug(movieSlug) },

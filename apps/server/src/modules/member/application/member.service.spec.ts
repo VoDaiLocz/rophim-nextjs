@@ -47,6 +47,23 @@ describe("MemberService", () => {
     );
   });
 
+  it("keeps a movie saved when it is already in favorites", async () => {
+    const prisma = createPrismaMock();
+    prisma.favorite.findUnique.mockResolvedValue({ id: "favorite-1" });
+
+    const result = await new MemberService(prisma as never).saveFavorite(
+      "user-1",
+      {
+        movieSlug: "mua-he-nhung-nam-80",
+        movieTitle: "Mùa Hè Những Năm 80",
+      },
+    );
+
+    expect(result).toEqual({ favorited: true });
+    expect(prisma.favorite.create).not.toHaveBeenCalled();
+    expect(prisma.favorite.delete).not.toHaveBeenCalled();
+  });
+
   it("removes a movie from favorites when it is already saved", async () => {
     const prisma = createPrismaMock();
     prisma.favorite.findUnique.mockResolvedValue({ id: "favorite-1" });
