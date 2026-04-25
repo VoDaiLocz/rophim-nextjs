@@ -108,7 +108,7 @@ function WatchPageContent({ params }: { params: Promise<{ slug: string }> }) {
   const suggestedMovies = transformListMovies(latestMovies);
 
   return (
-    <main className="min-h-screen bg-[#0b0d14] text-white pt-20">
+    <main className="min-h-screen bg-[#0b0d14] text-white pt-20 overflow-x-hidden">
       <div className="container mx-auto px-4 lg:px-12 py-8">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-widest mb-6">

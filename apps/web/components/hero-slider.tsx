@@ -70,7 +70,7 @@ export const HeroSlider = ({ movies }: HeroSliderProps) => {
                 fill
                 priority={index === 0}
                 className="object-cover object-[center_25%] transition-transform duration-[15000ms] ease-out group-hover:scale-110 opacity-100"
-                quality={100}
+                quality={75}
               />
               {/* The "Golden Secret" Overlays */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b0d14] via-[#0b0d14]/20 to-transparent z-10" />

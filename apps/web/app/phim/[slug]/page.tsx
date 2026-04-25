@@ -120,7 +120,7 @@ export default function MovieDetailPage({
             fill
             className="object-cover object-center"
             priority
-            quality={100}
+            quality={75}
             unoptimized
           />
           {/* Bottom gradient fade */}
@@ -134,7 +134,7 @@ export default function MovieDetailPage({
       <div className="max-w-[1640px] mx-auto px-5 md:px-[20px] -mt-48 relative z-30">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* ===== LEFT COLUMN - Movie Info Sidebar ===== */}
-          <div className="lg:w-[440px] flex-shrink-0 space-y-5">
+          <div className="order-2 lg:order-1 lg:w-[440px] flex-shrink-0 space-y-5">
             {/* Poster */}
             <div className="relative w-[120px] h-[180px] rounded-lg overflow-hidden shadow-2xl border border-white/10 mx-auto lg:mx-0">
               <Image
@@ -289,20 +289,28 @@ export default function MovieDetailPage({
           </div>
 
           {/* ===== RIGHT COLUMN - Main Content ===== */}
-          <div className="flex-1 min-w-0 space-y-6">
+          <div className="order-1 lg:order-2 flex-1 min-w-0 space-y-6">
+            <div className="lg:hidden space-y-1">
+              <h1 className="text-2xl font-black text-white leading-tight uppercase tracking-tight">
+                {movie.name}
+              </h1>
+              <p className="text-sm font-semibold text-[#ffd875]">
+                {movie.origin_name}
+              </p>
+            </div>
             {/* ===== ACTION BAR ===== */}
-            <div className="flex items-center flex-wrap gap-6 py-4">
+            <div className="flex items-center flex-wrap gap-4 md:gap-6 py-4">
               {/* Xem Ngay Button */}
               <Link
                 href={`/xem-phim/${movie.slug}`}
-                className="inline-flex items-center gap-3 bg-[#ffd875] text-[#191b24] font-medium text-lg px-8 py-4 rounded-full hover:brightness-110 transition-all hover:scale-[1.02] shadow-lg"
+                className="inline-flex items-center justify-center gap-3 bg-[#ffd875] text-[#191b24] font-bold text-base md:text-lg px-7 md:px-8 py-3.5 md:py-4 rounded-full hover:brightness-110 transition-all hover:scale-[1.02] shadow-lg"
               >
                 <Play size={18} className="fill-[#191b24]" />
                 Xem Ngay
               </Link>
 
               {/* Quick Actions */}
-              <div className="flex items-center gap-6 flex-grow">
+              <div className="flex items-center gap-5 md:gap-6 flex-grow">
                 {/* Yêu thích */}
                 <button className="flex flex-col items-center gap-1 text-white/70 hover:text-[#ffd875] transition-colors">
                   <Heart size={20} />
@@ -332,7 +340,7 @@ export default function MovieDetailPage({
               </div>
 
               {/* Đánh giá Button */}
-              <div className="flex items-center gap-2 bg-[#282b3a] px-4 py-2.5 rounded-full ml-auto">
+              <div className="flex items-center gap-2 bg-[#282b3a] px-4 py-2.5 rounded-full md:ml-auto">
                 <Star size={18} className="text-[#ffd875] fill-[#ffd875]" />
                 <span className="text-white font-bold text-sm">0</span>
                 <span className="text-white/60 text-xs">Đánh giá</span>

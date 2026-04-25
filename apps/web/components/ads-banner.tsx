@@ -1,30 +1,35 @@
 "use client";
 
+import Link from "next/link";
+import { PlayCircle, Sparkles } from "lucide-react";
+
 export const AdsBanner = () => {
   return (
-    <div className="container mx-auto px-4 md:px-10 py-10">
-      <div className="w-full aspect-[4/1] md:aspect-[8/1] bg-gradient-to-r from-[#1a1c28] via-[#2a2c3a] to-[#1a1c28] rounded-xl overflow-hidden flex items-center justify-center relative cursor-pointer group border border-white/5">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#ffd875] rounded-full flex items-center justify-center text-black font-black text-xl animate-bounce">
-                $
-              </div>
-              <div className="text-center md:text-left">
-                <h4 className="text-white font-black text-lg md:text-xl uppercase tracking-tighter">
-                  New Meme Coin is here!
-                </h4>
-                <p className="text-white/40 text-xs font-bold uppercase tracking-widest">
-                  Buy now on PancakeSwap
-                </p>
-              </div>
+    <div className="container mx-auto px-4 md:px-10 py-7 md:py-10">
+      <div className="w-full overflow-hidden rounded-lg border border-white/10 bg-[#191b24] shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+        <div className="relative flex min-h-[96px] flex-col items-center justify-center gap-4 px-5 py-6 text-center md:min-h-[112px] md:flex-row md:justify-between md:px-9 md:text-left">
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,216,117,0.12),transparent_36%,rgba(255,255,255,0.04)_68%,rgba(255,216,117,0.08))]" />
+          <div className="relative flex items-center gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ffd875] text-black shadow-[0_0_26px_rgba(255,216,117,0.25)]">
+              <Sparkles size={20} />
             </div>
-            <button className="bg-[#ffd875] text-black px-8 py-2 rounded-full font-black uppercase text-sm hover:scale-110 transition-transform shadow-[0_0_20px_rgba(255,216,117,0.3)]">
-              Buy Now
-            </button>
+            <div>
+              <h4 className="text-base md:text-xl font-black uppercase tracking-tight text-white">
+                RoPhim cập nhật phim mới mỗi ngày
+              </h4>
+              <p className="mt-1 text-[11px] md:text-xs font-bold uppercase tracking-widest text-white/45">
+                Chọn nhanh phim hot, vietsub rõ, giao diện sạch và mượt.
+              </p>
+            </div>
           </div>
+          <Link
+            href="/danh-sach/phim-moi-cap-nhat"
+            className="relative inline-flex items-center gap-2 rounded-full bg-[#ffd875] px-5 py-2.5 text-[11px] font-black uppercase tracking-widest text-black transition-transform hover:scale-[1.03]"
+          >
+            <PlayCircle size={16} />
+            Xem phim mới
+          </Link>
         </div>
-        {/* Decorative particles or patterns can be added here */}
       </div>
     </div>
   );

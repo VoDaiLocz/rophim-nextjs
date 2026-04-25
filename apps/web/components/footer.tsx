@@ -7,42 +7,42 @@ const SOCIAL_LINKS = [
   {
     name: "Telegram",
     url: "https://t.me/congdong_rophim",
-    icon: "https://rophimm.net/images/social/telegram-icon.svg",
+    mark: "TG",
   },
   {
     name: "Discord",
     url: "https://discord.gg/",
-    icon: "https://rophimm.net/images/social/discord-icon.svg",
+    mark: "DC",
   },
   {
     name: "X",
     url: "https://x.com/",
-    icon: "https://rophimm.net/images/social/x-icon.svg",
+    mark: "X",
   },
   {
     name: "Facebook",
     url: "https://www.facebook.com/",
-    icon: "https://rophimm.net/images/social/facebook-icon.svg",
+    mark: "FB",
   },
   {
     name: "Tiktok",
     url: "https://www.tiktok.com/",
-    icon: "https://rophimm.net/images/social/tiktok-icon.svg",
+    mark: "TT",
   },
   {
     name: "Youtube",
     url: "https://www.youtube.com/",
-    icon: "https://rophimm.net/images/social/youtube-icon.svg",
+    mark: "YT",
   },
   {
     name: "Threads",
     url: "https://www.threads.net/",
-    icon: "https://rophimm.net/images/social/threads-icon.svg",
+    mark: "TH",
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/",
-    icon: "https://rophimm.net/images/social/instagram-icon.svg",
+    mark: "IG",
   },
 ];
 
@@ -56,18 +56,17 @@ const FOOTER_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="bg-rophim-footer text-gray-400 py-12 border-t border-gray-800">
+    <footer className="bg-rophim-footer text-gray-400 py-12 border-t border-white/10">
       <div className="container mx-auto px-4 lg:px-8 text-center">
         {/* Logo & Slogan */}
         <div className="mb-6 flex flex-col items-center">
           <Link href="/" className="mb-4 block">
             <Image
-              src="https://rophimm.net/images/logo.svg"
+              src="/images/logo.svg"
               alt="RoPhim Logo"
               width={150}
               height={45}
               className="h-12 w-auto"
-              unoptimized
             />
           </Link>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm leading-relaxed">
@@ -87,16 +86,10 @@ export const Footer = () => {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:opacity-80 transition-opacity p-2 bg-rophim-bg-2 rounded-full border border-gray-700 hover:border-rophim-primary/50"
+              aria-label={social.name}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#191b24] text-[10px] font-black text-white/55 transition-all hover:border-rophim-primary/50 hover:bg-[#ffd875] hover:text-black"
             >
-              <Image
-                src={social.icon}
-                alt={social.name}
-                width={20}
-                height={20}
-                className="w-5 h-5"
-                unoptimized
-              />
+              {social.mark}
             </a>
           ))}
         </div>
@@ -136,14 +129,9 @@ export const Footer = () => {
             <div className="flex items-center gap-2">
               <span className="w-1 h-1 bg-gray-700 rounded-full"></span>
               <span>Hoàng Sa & Trường Sa là của Việt Nam!</span>
-              <Image
-                src="https://rophimm.net/images/vn_flag.svg"
-                alt="Vietnam Flag"
-                width={20}
-                height={14}
-                className="ml-1 inline-block align-middle"
-                unoptimized
-              />
+              <span className="ml-1" aria-label="Vietnam Flag">
+                🇻🇳
+              </span>
             </div>
             <p className="mt-2">
               © 2026 <span className="text-rophim-primary">RoPhim</span>. All
