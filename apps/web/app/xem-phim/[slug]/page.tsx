@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { VideoPlayer } from "@/components/video-player";
 import { MovieCarousel } from "@/components/movie-carousel";
+import { memberClient } from "@/lib/member-client";
 import {
   getMovieDetail,
   getLatestMovies,
@@ -75,6 +76,24 @@ function WatchPageContent({ params }: { params: Promise<{ slug: string }> }) {
     };
     if (slug) fetchData();
   }, [slug, tapParam]);
+
+  useEffect(() => {
+    if (!movie || !currentEpisode) return;
+
+    const timeoutId = window.setTimeout(() => {
+      void memberClient
+        .saveHistory({
+          movieSlug: movie.slug,
+          movieTitle: movie.name,
+          posterUrl: movie.poster_url,
+          episodeName: currentEpisode.name,
+          progressSeconds: 0,
+        })
+        .catch(() => undefined);
+    }, 2500);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [movie, currentEpisode]);
 
   if (loading) {
     return (

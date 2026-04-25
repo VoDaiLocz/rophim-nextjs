@@ -3,9 +3,6 @@
 import { useEffect, useState, use } from "react";
 import {
   Play,
-  Heart,
-  Plus,
-  Send,
   MessageSquare,
   Star,
   ChevronDown,
@@ -24,6 +21,8 @@ import {
   type ListMovie,
 } from "@/lib/ophim-client";
 import Image from "next/image";
+import { CommentsPanel } from "@/components/comments-panel";
+import { MemberMovieActions } from "@/components/member-movie-actions";
 
 export default function MovieDetailPage({
   params,
@@ -309,42 +308,13 @@ export default function MovieDetailPage({
                 Xem Ngay
               </Link>
 
-              {/* Quick Actions */}
-              <div className="flex items-center gap-5 md:gap-6 flex-grow">
-                {/* Yêu thích */}
-                <button className="flex flex-col items-center gap-1 text-white/70 hover:text-[#ffd875] transition-colors">
-                  <Heart size={20} />
-                  <span className="text-[11px]">Yêu thích</span>
-                </button>
-
-                {/* Thêm vào */}
-                <button className="flex flex-col items-center gap-1 text-white/70 hover:text-[#ffd875] transition-colors">
-                  <Plus size={20} />
-                  <span className="text-[11px]">Thêm vào</span>
-                </button>
-
-                {/* Chia sẻ */}
-                <button className="flex flex-col items-center gap-1 text-white/70 hover:text-[#ffd875] transition-colors">
-                  <Send size={20} />
-                  <span className="text-[11px]">Chia sẻ</span>
-                </button>
-
-                {/* Bình luận */}
-                <a
-                  href="#comment-area"
-                  className="flex flex-col items-center gap-1 text-white/70 hover:text-[#ffd875] transition-colors"
-                >
-                  <MessageSquare size={20} />
-                  <span className="text-[11px]">Bình luận</span>
-                </a>
-              </div>
-
-              {/* Đánh giá Button */}
-              <div className="flex items-center gap-2 bg-[#282b3a] px-4 py-2.5 rounded-full md:ml-auto">
-                <Star size={18} className="text-[#ffd875] fill-[#ffd875]" />
-                <span className="text-white font-bold text-sm">0</span>
-                <span className="text-white/60 text-xs">Đánh giá</span>
-              </div>
+              <MemberMovieActions
+                movie={{
+                  movieSlug: movie.slug,
+                  movieTitle: movie.name,
+                  posterUrl: movie.poster_url,
+                }}
+              />
             </div>
 
             {/* ===== TABS NAVIGATION (3 tabs only) ===== */}
@@ -446,21 +416,13 @@ export default function MovieDetailPage({
               </div>
             )}
 
-            {/* ===== BÌNH LUẬN SECTION ===== */}
-            <div id="comment-area" className="pt-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <MessageSquare size={22} className="text-white/60" />
-                <h3 className="text-xl font-bold text-white">Bình luận</h3>
-              </div>
-
-              {/* Comment Input */}
-              <div className="bg-[#0f111a] rounded-lg p-4 border border-white/5">
-                <textarea
-                  className="w-full bg-transparent text-sm text-white placeholder-white/30 focus:outline-none min-h-[60px] resize-none"
-                  placeholder="Viết bình luận..."
-                ></textarea>
-              </div>
-            </div>
+            <CommentsPanel
+              movie={{
+                movieSlug: movie.slug,
+                movieTitle: movie.name,
+                posterUrl: movie.poster_url,
+              }}
+            />
 
             {/* ===== CÓ THỂ BẠN SẼ THÍCH - Grid 5x2 ===== */}
             <div className="pt-8 space-y-4">

@@ -21,3 +21,86 @@ model Movie {
 
   @@index([slug])
 }
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  sessions     Session[]
+  favorites    Favorite[]
+  comments     Comment[]
+  ratings      Rating[]
+  history      WatchHistory[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieSlug  String
+  movieTitle String
+  posterUrl  String?
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, movieSlug])
+  @@index([movieSlug])
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieSlug  String
+  movieTitle String
+  body       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([movieSlug, createdAt])
+  @@index([userId])
+}
+
+model Rating {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieSlug  String
+  movieTitle String
+  value      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, movieSlug])
+  @@index([movieSlug])
+}
+
+model WatchHistory {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieSlug       String
+  movieTitle      String
+  posterUrl       String?
+  episodeName     String
+  progressSeconds Int      @default(0)
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, movieSlug, episodeName])
+  @@index([userId, updatedAt])
+}

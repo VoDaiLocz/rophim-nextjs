@@ -3,12 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Clock3, Heart, LogOut, Search, UserCircle } from "lucide-react";
+import { useMember } from "./member-provider";
 
 export const Navbar = () => {
   const [isVisible, setIsVisible] = React.useState(true);
   const [lastScrollY, setLastScrollY] = React.useState(0);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+  const { user, openAuth, openLibrary, logout } = useMember();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -86,12 +89,77 @@ export const Navbar = () => {
             </form>
           </div>
 
-          <Link
-            href="/login"
-            className="hidden lg:flex items-center gap-2 bg-[#ffd875] text-black px-5 py-2 rounded-full font-black text-[12px] uppercase tracking-tighter hover:bg-white transition-all"
-          >
-            THÀNH VIÊN
-          </Link>
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setIsUserMenuOpen((current) => !current)}
+                className="flex h-9 items-center gap-2 rounded-full bg-[#ffd875] px-2.5 sm:px-4 text-black transition-all hover:bg-white"
+              >
+                <UserCircle size={18} />
+                <span className="hidden sm:inline max-w-[110px] truncate text-[12px] font-black uppercase tracking-tight">
+                  {user.name}
+                </span>
+              </button>
+              <div
+                className={`absolute right-0 top-full mt-3 w-[230px] overflow-hidden rounded-2xl border border-white/10 bg-black/95 shadow-[0_18px_55px_rgba(0,0,0,0.65)] backdrop-blur-xl transition-all ${
+                  isUserMenuOpen
+                    ? "translate-y-0 opacity-100"
+                    : "-translate-y-2 pointer-events-none opacity-0"
+                }`}
+              >
+                <div className="border-b border-white/10 p-4">
+                  <p className="truncate text-sm font-black text-white">
+                    {user.name}
+                  </p>
+                  <p className="truncate text-[11px] text-white/35">
+                    {user.email}
+                  </p>
+                </div>
+                <div className="p-2">
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      openLibrary("favorites");
+                    }}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs font-bold uppercase tracking-widest text-white/60 hover:bg-white/5 hover:text-[#ffd875]"
+                  >
+                    <Heart size={15} />
+                    Tủ phim
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      openLibrary("history");
+                    }}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs font-bold uppercase tracking-widest text-white/60 hover:bg-white/5 hover:text-[#ffd875]"
+                  >
+                    <Clock3 size={15} />
+                    Lịch sử xem
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      void logout();
+                    }}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-xs font-bold uppercase tracking-widest text-white/60 hover:bg-white/5 hover:text-red-300"
+                  >
+                    <LogOut size={15} />
+                    Đăng xuất
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => openAuth("login")}
+              className="flex h-9 items-center gap-2 rounded-full bg-[#ffd875] px-2.5 sm:px-4 text-black transition-all hover:bg-white"
+            >
+              <UserCircle size={18} />
+              <span className="hidden sm:inline text-[12px] font-black uppercase tracking-tight">
+                Thành viên
+              </span>
+            </button>
+          )}
         </div>
       </div>
 
