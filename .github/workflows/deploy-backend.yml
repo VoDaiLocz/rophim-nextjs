@@ -55,13 +55,30 @@ jobs:
         shell: bash
         run: |
           health_url="${RENDER_BACKEND_HEALTH_URL}"
+          base_url="${health_url%/health}"
+          auth_url="${base_url}/auth/me"
+          register_url="${base_url}/auth/register"
 
           for attempt in {1..45}; do
             echo "Health check attempt ${attempt}/45: ${health_url}"
 
             if curl --fail --show-error --silent --max-time 10 "${health_url}" > /tmp/health.json; then
               cat /tmp/health.json
-              exit 0
+              echo ""
+              echo "Verifying auth API is deployed: ${auth_url}"
+              if curl --fail --show-error --silent --max-time 10 "${auth_url}" > /tmp/auth.json; then
+                cat /tmp/auth.json
+                echo ""
+                echo "Verifying auth preflight: ${register_url}"
+                if curl --fail --show-error --silent --max-time 10 \
+                  --request OPTIONS \
+                  --header "Origin: https://render-healthcheck.vercel.app" \
+                  --header "Access-Control-Request-Method: POST" \
+                  --header "Access-Control-Request-Headers: content-type" \
+                  "${register_url}" > /tmp/preflight.txt; then
+                  exit 0
+                fi
+              fi
             fi
 
             sleep 20
