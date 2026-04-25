@@ -9,6 +9,7 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "@rophim/database#build": {
+      "cache": false,
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": []
     },
