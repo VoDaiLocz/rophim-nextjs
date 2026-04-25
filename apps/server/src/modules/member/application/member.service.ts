@@ -153,11 +153,24 @@ export class MemberService {
   }
 
   private sanitizeComment(body: string): string {
-    const sanitizedBody = `${body || ""}`
-      .replace(/<[^>]*>/g, "")
-      .trim()
-      .replace(/\s+/g, " ")
-      .slice(0, 500);
+    let withoutTags = "";
+    let insideTag = false;
+
+    for (const character of `${body || ""}`) {
+      if (character === "<") {
+        insideTag = true;
+        continue;
+      }
+      if (character === ">") {
+        insideTag = false;
+        continue;
+      }
+      if (!insideTag) {
+        withoutTags += character;
+      }
+    }
+
+    const sanitizedBody = withoutTags.trim().replace(/\s+/g, " ").slice(0, 500);
 
     if (sanitizedBody.length < 2) {
       throw new BadRequestException("Comment is too short");

@@ -125,9 +125,30 @@ export class AuthService {
 
   private normalizeEmail(email: string): string {
     const normalizedEmail = email.trim().toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+    const parts = normalizedEmail.split("@");
+    if (
+      parts.length !== 2 ||
+      !parts[0] ||
+      !parts[1] ||
+      normalizedEmail.includes(" ")
+    ) {
       throw new BadRequestException("Invalid email");
     }
+
+    const domainLabels = parts[1].split(".");
+    if (
+      domainLabels.length < 2 ||
+      domainLabels.some(
+        (label) =>
+          !label ||
+          label.startsWith("-") ||
+          label.endsWith("-") ||
+          label.length > 63,
+      )
+    ) {
+      throw new BadRequestException("Invalid email");
+    }
+
     return normalizedEmail;
   }
 
