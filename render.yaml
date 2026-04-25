@@ -7,7 +7,7 @@ services:
     branch: main
     autoDeployTrigger: off
     healthCheckPath: /health
-    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile && pnpm --filter @rophim/database build && pnpm --filter @rophim/server build
+    buildCommand: corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install --frozen-lockfile --prod=false && pnpm --filter @rophim/database build && pnpm --filter @rophim/server build
     startCommand: pnpm --filter @rophim/server start:prod
     envVars:
       - key: NODE_VERSION
