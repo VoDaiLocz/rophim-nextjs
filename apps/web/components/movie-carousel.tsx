@@ -44,20 +44,20 @@ export const MovieCarousel = ({
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="py-6 w-full relative">
+    <section className="py-4 md:py-6 w-full relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-10">
         {/* Header */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 md:mb-5">
+          <div className="flex min-w-0 items-center gap-2.5 md:gap-3">
             {icon ? (
-              <span className="text-2xl">{icon}</span>
+              <span className="text-xl md:text-2xl shrink-0">{icon}</span>
             ) : (
-              <div className="w-1.5 h-6 bg-[#ffd875] rounded-full shadow-[0_0_10px_rgba(255,216,117,0.3)]"></div>
+              <div className="w-1.5 h-5 md:h-6 shrink-0 bg-[#ffd875] rounded-full shadow-[0_0_10px_rgba(255,216,117,0.3)]"></div>
             )}
-            <h2 className="text-xl md:text-2xl font-extrabold text-white leading-none uppercase tracking-tight">
+            <h2 className="min-w-0 text-lg md:text-2xl font-extrabold text-white leading-tight uppercase tracking-tight">
               <Link
                 href={viewMoreLink || "#"}
-                className="hover:text-[#ffd875] transition-colors"
+                className="block truncate hover:text-[#ffd875] transition-colors"
               >
                 {title}
               </Link>
@@ -66,7 +66,7 @@ export const MovieCarousel = ({
           {viewMoreLink && (
             <Link
               href={viewMoreLink}
-              className="text-gray-400 hover:text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-all hover:translate-x-2 group/link"
+              className="self-start sm:self-auto text-gray-400 hover:text-white text-[11px] md:text-xs font-bold uppercase tracking-widest inline-flex items-center gap-1.5 md:gap-2 transition-all hover:translate-x-1 group/link whitespace-nowrap"
             >
               Xem tất cả
               <ChevronRight
@@ -82,21 +82,21 @@ export const MovieCarousel = ({
           {/* Navigation Buttons */}
           <button
             ref={navigationPrevRef}
-            className="absolute -left-4 md:-left-8 top-[40%] -translate-y-1/2 z-20 w-12 h-12 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white opacity-0 group-hover/swiper:opacity-100 transition-all hover:bg-white hover:text-black hover:scale-110 disabled:opacity-0 hidden md:flex"
+            className="absolute left-2 top-[40%] -translate-y-1/2 z-20 w-11 h-11 bg-black/70 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white opacity-0 group-hover/swiper:opacity-100 transition-all hover:bg-white hover:text-black hover:scale-105 disabled:opacity-0 hidden md:flex"
           >
             <ChevronLeft size={28} />
           </button>
           <button
             ref={navigationNextRef}
-            className="absolute -right-4 md:-right-8 top-[40%] -translate-y-1/2 z-20 w-12 h-12 bg-black/60 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white opacity-0 group-hover/swiper:opacity-100 transition-all hover:bg-white hover:text-black hover:scale-110 disabled:opacity-0 hidden md:flex"
+            className="absolute right-2 top-[40%] -translate-y-1/2 z-20 w-11 h-11 bg-black/70 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white opacity-0 group-hover/swiper:opacity-100 transition-all hover:bg-white hover:text-black hover:scale-105 disabled:opacity-0 hidden md:flex"
           >
             <ChevronRight size={28} />
           </button>
 
           <Swiper
             modules={[Navigation]}
-            spaceBetween={16}
-            slidesPerView={2.2}
+            spaceBetween={12}
+            slidesPerView={2.15}
             navigation={{
               prevEl: navigationPrevRef.current,
               nextEl: navigationNextRef.current,
@@ -109,12 +109,12 @@ export const MovieCarousel = ({
               }
             }}
             breakpoints={{
-              480: { slidesPerView: 2.2, spaceBetween: 15 },
-              768: { slidesPerView: 3.2, spaceBetween: 20 },
-              1024: { slidesPerView: 4.2, spaceBetween: 20 },
-              1440: { slidesPerView: 5.2, spaceBetween: 25 },
+              480: { slidesPerView: 2.4, spaceBetween: 14 },
+              768: { slidesPerView: 3.4, spaceBetween: 18 },
+              1024: { slidesPerView: 4.4, spaceBetween: 18 },
+              1440: { slidesPerView: 5.4, spaceBetween: 22 },
             }}
-            className="w-full !overflow-visible"
+            className="w-full !overflow-hidden !pb-1"
           >
             {items.map((movie) => (
               <SwiperSlide key={movie.id} className="h-auto">

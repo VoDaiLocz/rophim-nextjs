@@ -148,8 +148,14 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const uniqueMovies = (movies: ListMovie[]) => {
+    return Array.from(
+      new Map((movies || []).map((movie) => [movie._id || movie.slug, movie])),
+    ).map(([, movie]) => movie);
+  };
+
   const transformMovies = (movies: ListMovie[]) => {
-    return (movies || []).map((m) => ({
+    return uniqueMovies(movies).map((m) => ({
       id: m._id,
       title: m.name,
       originalTitle: m.origin_name,
@@ -212,7 +218,7 @@ export default function Home() {
               <TrendingCarousel
                 title="Đây Rồi Top Phim Xem Nhiều Nhất"
                 items={transformMovies(
-                  [...data.latest, ...data.series, ...data.single]
+                  uniqueMovies([...data.latest, ...data.series, ...data.single])
                     .sort((a, b) => b.view - a.view)
                     .slice(0, 10),
                 )}

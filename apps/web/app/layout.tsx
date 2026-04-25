@@ -26,6 +26,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { HideDevBadge } from "@/components/hide-dev-badge";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { MemberProvider } from "@/components/member-provider";
 import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
@@ -60,10 +61,12 @@ export default function RootLayout({
       >
         <NextTopLoader color="#ffd875" showSpinner={false} />
         <HideDevBadge />
-        <Navbar />
-        {children}
-        <ScrollToTop />
-        <Footer />
+        <MemberProvider>
+          <Navbar />
+          {children}
+          <ScrollToTop />
+          <Footer />
+        </MemberProvider>
       </body>
     </html>
   );

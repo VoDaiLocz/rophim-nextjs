@@ -1,7 +1,7 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
-  "globalEnv": ["PORT"],
+  "globalEnv": ["PORT", "CORS_ORIGIN", "NODE_ENV", "NEXT_PUBLIC_API_BASE_URL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -9,6 +9,7 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "@rophim/database#build": {
+      "cache": false,
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": []
     },
@@ -18,7 +19,9 @@
     "lint:fix": {
       "cache": false
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "check-types": {
       "dependsOn": ["^check-types"]
     },
