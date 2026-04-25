@@ -36,10 +36,11 @@ graph TD
 ```
 
 ### Chi tiết các thư mục chính:
-*   **`apps/web`**: Ứng dụng Front-end chính sử dụng **Next.js 15+ (Turbopack)**. Xử lý toàn bộ logic giao diện, routing và kết nối API.
-*   **`apps/server`**: Backend xử lý các tác vụ nghiệp vụ, database và API layer (sử dụng NestJS).
-*   **`packages/ui`**: Thư viện component dùng chung, được xây dựng bằng Tailwind CSS và Radix UI.
-*   **`packages/config-*`**: Standardized configurations cho ESLint và TypeScript trên toàn dự án.
+
+- **`apps/web`**: Ứng dụng Front-end chính sử dụng **Next.js 15+ (Turbopack)**. Xử lý toàn bộ logic giao diện, routing và kết nối API.
+- **`apps/server`**: Backend xử lý các tác vụ nghiệp vụ, database và API layer (sử dụng NestJS).
+- **`packages/ui`**: Thư viện component dùng chung, được xây dựng bằng Tailwind CSS và Radix UI.
+- **`packages/config-*`**: Standardized configurations cho ESLint và TypeScript trên toàn dự án.
 
 ---
 
@@ -47,16 +48,16 @@ graph TD
 
 Dự án quy tụ những công nghệ hiện đại nhất trong hệ sinh thái JavaScript/TypeScript:
 
-| Lớp (Layer) | Công nghệ chính |
-| :--- | :--- |
-| **Framework** | Next.js 15+ (App Router), NestJS |
-| **Monorepo Tool** | Turborepo, pnpm Workspaces |
-| **Styling** | Tailwind CSS v4, Framer Motion |
-| **State & API** | React Server Components, Parallel Fetching |
-| **Video Player** | Artplayer.js, Hls.js (M3U8 support) |
-| **UI Components** | Radix UI, Lucide Icons, Swiper.js |
-| **Quality** | TypeScript 5, ESLint, Prettier |
-| **Deployment** | Vercel (Production optimized) |
+| Lớp (Layer)       | Công nghệ chính                            |
+| :---------------- | :----------------------------------------- |
+| **Framework**     | Next.js 15+ (App Router), NestJS           |
+| **Monorepo Tool** | Turborepo, pnpm Workspaces                 |
+| **Styling**       | Tailwind CSS v4, Framer Motion             |
+| **State & API**   | React Server Components, Parallel Fetching |
+| **Video Player**  | Artplayer.js, Hls.js (M3U8 support)        |
+| **UI Components** | Radix UI, Lucide Icons, Swiper.js          |
+| **Quality**       | TypeScript 5, ESLint, Prettier             |
+| **Deployment**    | Vercel (Production optimized)              |
 
 ---
 
@@ -72,11 +73,13 @@ Dự án quy tụ những công nghệ hiện đại nhất trong hệ sinh thá
 ## 🛠️ Hướng Dẫn Cài Đặt
 
 1. **Cài đặt dependencies:**
+
    ```bash
    pnpm install
    ```
 
 2. **Chạy môi trường phát triển (Development):**
+
    ```bash
    pnpm dev
    ```
@@ -88,4 +91,4 @@ Dự án quy tụ những công nghệ hiện đại nhất trong hệ sinh thá
 
 ---
 
-*Phát triển và duy trì bởi **locfaker (@locv2659@gmail.com)**.*
+_Phát triển và duy trì bởi **locfaker (@locv2659@gmail.com)**._

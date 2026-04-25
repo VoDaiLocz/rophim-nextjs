@@ -1,0 +1,84 @@
+name: Deploy Backend
+
+on:
+  workflow_run:
+    workflows:
+      - CI
+    branches:
+      - main
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-backend-production
+  cancel-in-progress: false
+
+jobs:
+  render:
+    name: Render Production Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    environment:
+      name: production
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      RENDER_BACKEND_HEALTH_URL: ${{ secrets.RENDER_BACKEND_HEALTH_URL }}
+
+    steps:
+      - name: Validate deployment secrets
+        id: deploy-config
+        shell: bash
+        run: |
+          if [ -z "${RENDER_DEPLOY_HOOK_URL}" ] || [ -z "${RENDER_BACKEND_HEALTH_URL}" ]; then
+            echo "Render deploy secrets are not configured yet. Skipping backend deploy."
+            echo "configured=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "configured=true" >> "${GITHUB_OUTPUT}"
+
+      - name: Trigger Render deploy hook
+        if: steps.deploy-config.outputs.configured == 'true'
+        shell: bash
+        run: |
+          curl --fail --show-error --silent \
+            --request POST \
+            "${RENDER_DEPLOY_HOOK_URL}"
+
+      - name: Wait for backend health
+        if: steps.deploy-config.outputs.configured == 'true'
+        shell: bash
+        run: |
+          health_url="${RENDER_BACKEND_HEALTH_URL}"
+
+          for attempt in {1..45}; do
+            echo "Health check attempt ${attempt}/45: ${health_url}"
+
+            if curl --fail --show-error --silent --max-time 10 "${health_url}" > /tmp/health.json; then
+              cat /tmp/health.json
+              exit 0
+            fi
+
+            sleep 20
+          done
+
+          echo "Backend did not become healthy within 15 minutes."
+          exit 1
+
+      - name: Report skipped deploy
+        if: steps.deploy-config.outputs.configured != 'true'
+        shell: bash
+        run: |
+          {
+            echo "### Backend deploy skipped"
+            echo ""
+            echo "Configure these GitHub secrets to enable Render deployment:"
+            echo ""
+            echo "- \`RENDER_DEPLOY_HOOK_URL\`"
+            echo "- \`RENDER_BACKEND_HEALTH_URL\`"
+          } >> "${GITHUB_STEP_SUMMARY}"

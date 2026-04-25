@@ -5,7 +5,10 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,md}\" \".github/**/*.{yml,yaml,md}\" \"render.yaml\"",
+    "format:check": "prettier --check \"**/*.{js,mjs,cjs,ts,tsx,json,md}\" \".github/**/*.{yml,yaml,md}\" \"render.yaml\"",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
@@ -15,6 +18,6 @@
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=20.9.0"
   }
 }

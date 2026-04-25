@@ -36,6 +36,11 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+.idea/
+*.iml
+local.properties
+.gradle/
+.kotlin/
 .worktrees/
 
 # Artifacts & Screenshots

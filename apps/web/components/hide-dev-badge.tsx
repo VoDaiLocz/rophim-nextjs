@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const HideDevBadge = () => {
-    useEffect(() => {
-        // Aggressively hide Next.js dev tools
-        const style = document.createElement('style');
-        style.innerHTML = `
+  useEffect(() => {
+    // Aggressively hide Next.js dev tools
+    const style = document.createElement("style");
+    style.innerHTML = `
             #nextjs-portal, 
             [data-nextjs-toast], 
             [data-nextjs-dialog],
@@ -17,18 +17,20 @@ export const HideDevBadge = () => {
                 visibility: hidden !important; 
             }
         `;
-        document.head.appendChild(style);
+    document.head.appendChild(style);
 
-        // Also try to remove from DOM if possible
-        const timer = setInterval(() => {
-            const badge = document.querySelector('nextjs-portal') || document.querySelector('.__next-dev-tools-icon');
-            if (badge) {
-                badge.remove();
-            }
-        }, 1000);
+    // Also try to remove from DOM if possible
+    const timer = setInterval(() => {
+      const badge =
+        document.querySelector("nextjs-portal") ||
+        document.querySelector(".__next-dev-tools-icon");
+      if (badge) {
+        badge.remove();
+      }
+    }, 1000);
 
-        return () => clearInterval(timer);
-    }, []);
+    return () => clearInterval(timer);
+  }, []);
 
-    return null;
+  return null;
 };

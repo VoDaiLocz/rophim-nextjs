@@ -1,15 +1,24 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "globalEnv": ["PORT"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "@rophim/database#build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": []
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "lint:fix": {
+      "cache": false
+    },
+    "test": {},
     "check-types": {
       "dependsOn": ["^check-types"]
     },
