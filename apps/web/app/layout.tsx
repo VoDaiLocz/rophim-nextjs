@@ -55,7 +55,9 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className={`${beVietnamPro.variable} ${oswald.variable} antialiased bg-black text-white font-sans`}>
+      <body
+        className={`${beVietnamPro.variable} ${oswald.variable} antialiased bg-black text-white font-sans`}
+      >
         <NextTopLoader color="#ffd875" showSpinner={false} />
         <HideDevBadge />
         <Navbar />

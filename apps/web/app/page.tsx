@@ -6,8 +6,6 @@ import { MovieCarousel } from "@/components/movie-carousel";
 import { TrendingCarousel } from "@/components/trending-carousel";
 import { TopicGrid } from "@/components/topic-grid";
 import { AdsBanner } from "@/components/ads-banner";
-import { MoodGrid } from "@/components/mood-grid";
-import { HomeStatsGrid } from "@/components/home-stats-grid";
 import { GhibliSection } from "@/components/ghibli-section";
 import {
   getLatestMovies,
@@ -16,7 +14,6 @@ import {
   getMoviesByCategory,
   searchMovies,
   type ListMovie,
-  type LatestMoviesResponse
 } from "@/lib/ophim-client";
 
 export default function Home() {
@@ -60,12 +57,27 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const [
-          latestRes, koreanRes, chineseRes, usukRes,
-          seriesRes, singleRes, cartoonRes, cinemaRes,
-          japaneseRes, thaiRes, hongkongRes, costumeRes,
-          horrorRes, romanceRes,
+          latestRes,
+          koreanRes,
+          chineseRes,
+          usukRes,
+          seriesRes,
+          singleRes,
+          cartoonRes,
+          cinemaRes,
+          japaneseRes,
+          thaiRes,
+          hongkongRes,
+          costumeRes,
+          horrorRes,
+          romanceRes,
           // Specific searches for 6 FIXED posters as requested by USER
-          fixed1, fixed2, fixed3, fixed4, fixed5, fixed6
+          fixed1,
+          fixed2,
+          fixed3,
+          fixed4,
+          fixed5,
+          fixed6,
         ] = await Promise.all([
           getLatestMovies(1),
           getMoviesByCountry("han-quoc", 1, true),
@@ -94,10 +106,14 @@ export default function Home() {
         const userFixedItems: ListMovie[] = [];
         const searchResults = [fixed1, fixed2, fixed3, fixed4, fixed5, fixed6];
 
-        searchResults.forEach(res => {
+        searchResults.forEach((res) => {
           const firstMovie = res?.items?.[0];
           if (firstMovie) {
-            if (!userFixedItems.some(existing => existing._id === firstMovie._id)) {
+            if (
+              !userFixedItems.some(
+                (existing) => existing._id === firstMovie._id,
+              )
+            ) {
               userFixedItems.push(firstMovie);
             }
           }
@@ -123,7 +139,6 @@ export default function Home() {
           romance: romanceRes.items,
           hero: curatedHero, // Use curated for slider
         });
-
       } catch (error) {
         console.error("Failed to fetch movies", error);
       } finally {
@@ -160,7 +175,9 @@ export default function Home() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-48 space-y-4">
             <div className="w-12 h-12 border-4 border-[#ffd875] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-white/40 animate-pulse text-sm font-medium tracking-wider uppercase">Đang đồng bộ dữ liệu RoPhim...</p>
+            <p className="text-white/40 animate-pulse text-sm font-medium tracking-wider uppercase">
+              Đang đồng bộ dữ liệu RoPhim...
+            </p>
           </div>
         ) : (
           <>
@@ -197,7 +214,7 @@ export default function Home() {
                 items={transformMovies(
                   [...data.latest, ...data.series, ...data.single]
                     .sort((a, b) => b.view - a.view)
-                    .slice(0, 10)
+                    .slice(0, 10),
                 )}
               />
 
@@ -211,9 +228,7 @@ export default function Home() {
               <TrendingCarousel
                 title="Top 10 phim bộ hôm nay"
                 items={transformMovies(
-                  [...data.series]
-                    .sort((a, b) => b.view - a.view)
-                    .slice(0, 10)
+                  [...data.series].sort((a, b) => b.view - a.view).slice(0, 10),
                 )}
               />
 
@@ -229,9 +244,7 @@ export default function Home() {
               <TrendingCarousel
                 title="Top 10 phim lẻ hôm nay"
                 items={transformMovies(
-                  [...data.single]
-                    .sort((a, b) => b.view - a.view)
-                    .slice(0, 10)
+                  [...data.single].sort((a, b) => b.view - a.view).slice(0, 10),
                 )}
               />
 

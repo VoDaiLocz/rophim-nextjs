@@ -5,7 +5,9 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "prisma generate --schema=./prisma/schema.prisma",
+    "generate": "prisma generate --schema=./prisma/schema.prisma",
+    "test": "node ./scripts/validate-schema.mjs"
   },
   "keywords": [],
   "author": "",

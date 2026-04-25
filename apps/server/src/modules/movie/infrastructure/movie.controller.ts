@@ -1,12 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
-import { GetMoviesUseCase } from '../application/use-cases/get-movies.use-case';
+import { Controller, Get } from "@nestjs/common";
+import { GetMoviesUseCase } from "../application/use-cases/get-movies.use-case";
 
-@Controller('movies')
+@Controller("movies")
 export class MovieController {
-    constructor(private readonly getMoviesUseCase: GetMoviesUseCase) { }
+  constructor(private readonly getMoviesUseCase: GetMoviesUseCase) {}
 
-    @Get()
-    async getMovies() {
-        return this.getMoviesUseCase.execute();
-    }
+  @Get()
+  async getMovies() {
+    return this.getMoviesUseCase.execute();
+  }
 }
